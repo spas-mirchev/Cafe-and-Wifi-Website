@@ -1,0 +1,57 @@
+{% extends "layout.html" %} {% block body %}
+
+<div class="row">
+  <div class="col-lg-4 col-sm">
+    {% for enhanced_cafe in enhanced_cafes %} {% set cafe =
+    enhanced_cafe["cafe"] %} {% set coordinates = enhanced_cafe["coordinates"]
+    %}
+
+    <div
+      class="cafe card mb-3 m-3"
+      style="max-width: 540px"
+      data-coordinate="{{ coordinates }}"
+      data-name="{{cafe.name}}"
+      data-url="{{cafe.img_url}}"
+    >
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <a href="{{url_for('admin')}}">
+            <img src="{{cafe.img_url}}" class="card-img" alt="oppa.."
+          /></a>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h6 class="card-title">{{cafe.name}}</h6>
+            <div style="color: green">
+              {% if cafe.has_wifi == 1 %}
+              <span class="active-filter high">
+                <i class="fa fa-fw fa-wifi fa-border"> </i>
+              </span>
+              {% endif%} {% if cafe.has_sockets == 1 %}
+              <span class="active-filter high">
+                <i class="fa fa-fw fa-plug fa-border"> </i>
+              </span>
+              {% endif%} {% if cafe.has_toilet == 1 %}
+              <span class="active-filter high">
+                <i class="fa fa-bath fa-border"></i>
+              </span>
+              {% endif%} {% if cafe.can_take_calls == 1 %}
+              <span class="active-filter high">
+                <i class="fa fa-headphones fa-border" aria-hidden="true"></i>
+              </span>
+              {% endif%}
+            </div>
+            <p class="card-text">
+              <small class="text-muted">Number of seats {{cafe.seats}}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+  <div class="col-lg-8 col-sm mt-3">
+    <div id="map" class="h-100 w-100" style="position: fixed"></div>
+  </div>
+</div>
+{% endblock %}

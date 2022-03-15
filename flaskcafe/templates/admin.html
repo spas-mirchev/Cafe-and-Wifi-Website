@@ -1,0 +1,16 @@
+{% extends 'layout.html' %} {% import "bootstrap/wtf.html" as wtf %} {% block
+body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <h1>Add a new cafe into the database</h1>
+      {{ wtf.quick_form(form, button_map={'submit': 'info'}, novalidate=True) }}
+      <p class="space-above">
+        <a href="{{ url_for('home') }}">See all cafes</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
