@@ -11,14 +11,43 @@
         alt="..."
       />
     </div>
+
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">{{cafe.name}}</h5>
-        <p class="card-text">This</p>
+
+        <form
+          class="row g-3"
+          action="{{url_for('update_price', cafe_id=cafe.id )}}"
+          method="post"
+        >
+          <div class="row g-3 align-items-center">
+            <div class="col-auto">
+              <label for="coffee_price" class="col-form-label"
+                >Update price
+              </label>
+            </div>
+            <div class="col-auto">
+              <input
+                type="text"
+                name="new_price"
+                id="price"
+                class="form-control"
+                placeholder="{{cafe.coffee_price}}"
+              />
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-outline-primary mb-3">
+                Update price
+              </button>
+            </div>
+          </div>
+        </form>
+        <br />
         <p class="card-text">
           <small class="text-muted"
             >Delete cafe
-            <a href="{{url_for('delete_post', cafe=cafe.id) }}">✘</a></small
+            <a href="{{url_for('delete_cafe', cafe=cafe.id) }}">✘</a></small
           >
         </p>
       </div>

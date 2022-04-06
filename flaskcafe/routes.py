@@ -87,11 +87,23 @@ def all_cafes():
     return render_template("all_cafes.html", cafes=cafes)
 
 @app.route("/delete/<int:cafe>")
-def delete_post(cafe):
-    post_to_delete = Cafe.query.get(cafe)
-    db.session.delete(post_to_delete)
+def delete_cafe(cafe):
+    cafe_to_delete = Cafe.query.get(cafe)
+    db.session.delete(cafe_to_delete)
     db.session.commit()
+    flash(f'{cafe_to_delete.name} has been deleted', 'danger')
     return redirect(url_for('admin'))
+
+@app.route("/update/<int:cafe_id>",methods =["GET", "POST"])
+def update_price(cafe_id):
+    if request.method == "POST":
+        cafe_to_update = Cafe.query.get(cafe_id)
+        updated_price = request.form.get('new_price')
+        print(type(updated_price))
+        cafe_to_update.coffee_price = updated_price
+        db.session.commit()
+        flash(f'Coffee price for {cafe_to_update.name} has been updated', 'warning')
+        return redirect(url_for('all_cafes'))
 
 @app.route('/logout')
 @login_required
